@@ -155,7 +155,7 @@ dealloc(nitroCode)
     </CheatEntry>
     <CheatEntry>
       <ID>16</ID>
-      <Description>"武器无冷却（玩家）"</Description>
+      <Description>"武器无冷却"</Description>
       <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
