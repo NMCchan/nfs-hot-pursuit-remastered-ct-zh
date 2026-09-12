@@ -155,7 +155,7 @@ dealloc(nitroCode)
     </CheatEntry>
     <CheatEntry>
       <ID>16</ID>
-      <Description>"No Weapon Cooldown (Player)"</Description>
+      <Description>"No Weapon Cooldown"</Description>
       <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
