@@ -1,6 +1,8 @@
-# Need for Speed™ Hot Pursuit Remastered《极品飞车：热力追踪》重制版 中文版 Cheat Table
+# Need for Speed™ Hot Pursuit Remastered - Cheat Engine Table (中文版)
 
-适用于 **Need for Speed™ Hot Pursuit Remastered**（**《极品飞车：热力追踪》重制版**）的 Cheat Engine 表格中文版。原脚本逻辑保持不变，仅翻译了 Cheat Engine 中显示的条目名称。
+**《极品飞车 热力追踪 重制版》Cheat Engine 中文修改表格**
+
+适用于 **Need for Speed™ Hot Pursuit Remastered**（**《极品飞车 热力追踪 重制版》**）的 Cheat Engine（CE）表格中文版。原脚本逻辑保持不变，仅翻译了 Cheat Engine 中显示的条目名称。
 
 ## 功能
 
