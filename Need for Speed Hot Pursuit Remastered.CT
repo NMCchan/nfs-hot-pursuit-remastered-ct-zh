@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="52">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"Freeze all AI driving commands (single-player)"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+aobscanmodule(AI_DRIVE,NFS11Remastered.exe,E9 5B 07 88 02)
+aobscanmodule(AI_DRIVE_SPEED,NFS11Remastered.exe,48 89 5C 24 08 48 89 6C 24 10 48 89 74 24 18 57 48 81 EC 80 00 00 00 48 8B E9)
+aobscanmodule(AI_INTERCEPTOR,NFS11Remastered.exe,E9 6B 2B 88 02)
+aobscanmodule(AI_PLAYER_SPEED,NFS11Remastered.exe,E9 2B 30 88 02)
+assert(AI_DRIVE,E9 5B 07 88 02)
+assert(AI_DRIVE_SPEED,48 89 5C 24 08)
+assert(AI_INTERCEPTOR,E9 6B 2B 88 02)
+assert(AI_PLAYER_SPEED,E9 2B 30 88 02)
+AI_DRIVE:
+db C3
+AI_DRIVE_SPEED:
+db C3
+AI_INTERCEPTOR:
+db C3
+AI_PLAYER_SPEED:
+db C3
+registersymbol(AI_DRIVE)
+registersymbol(AI_DRIVE_SPEED)
+registersymbol(AI_INTERCEPTOR)
+registersymbol(AI_PLAYER_SPEED)
+
+[DISABLE]
+AI_DRIVE:
+db E9
+AI_DRIVE_SPEED:
+db 48
+AI_INTERCEPTOR:
+db E9
+AI_PLAYER_SPEED:
+db E9
+unregistersymbol(AI_DRIVE)
+unregistersymbol(AI_DRIVE_SPEED)
+unregistersymbol(AI_INTERCEPTOR)
+unregistersymbol(AI_PLAYER_SPEED)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>12</ID>
+      <Description>"Race Timer Zero (Player)"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+if syntaxcheck then return end
+if _G.nfsTimerZero then _G.nfsTimerZero.Enabled = false; _G.nfsTimerZero.destroy(); _G.nfsTimerZero = nil end
+_G.nfsTimerZeroOffs = {0x1370, 0x1390, 0x13D8, 0x13E0, 0x13E8, 0x13F0, 0x13F8}
+_G.nfsTimerZeroLast = {}
+local q0 = readPointer("NFS11Remastered.exe+1279218")
+if q0 and q0 ~= 0 then
+  for _, o in ipairs(_G.nfsTimerZeroOffs) do _G.nfsTimerZeroLast[o] = readInteger(q0 + o) end
+end
+_G.nfsTimerZero = createTimer(nil)
+_G.nfsTimerZero.Interval = 10
+_G.nfsTimerZero.OnTimer = function()
+  local q = readPointer("NFS11Remastered.exe+1279218")
+  if q and q ~= 0 then
+    for _, o in ipairs(_G.nfsTimerZeroOffs) do
+      local v = readInteger(q + o)
+      local last = _G.nfsTimerZeroLast[o]
+      if v and last and v &gt; last then
+        writeInteger(q + o, 0)
+        v = 0
+      end
+      _G.nfsTimerZeroLast[o] = v
+    end
+  end
+end
+_G.nfsTimerZero.Enabled = true
+{$asm}
+alloc(nfstimercave,16)
+nfstimercave:
+db 90
+
+[DISABLE]
+{$lua}
+if syntaxcheck then return end
+if _G.nfsTimerZero then _G.nfsTimerZero.Enabled = false; _G.nfsTimerZero.destroy(); _G.nfsTimerZero = nil end
+_G.nfsTimerZeroLast = nil
+_G.nfsTimerZeroOffs = nil
+{$asm}
+dealloc(nfstimercave)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>13</ID>
+      <Description>"Infinite Health (Player)"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+aobscanmodule(HPSIG,NFS11Remastered.exe,F3 0F 10 80 10 04 00 00 48 83 C4 28 C3)
+alloc(HPCAVE,128,NFS11Remastered.exe)
+label(HPBACK)
+HPCAVE:
+  push rcx
+  mov ecx,0
+  mov [rax+00000410],ecx
+  pop rcx
+  movss xmm0,[rax+00000410]
+  jmp HPBACK
+HPSIG:
+  jmp HPCAVE
+  nop
+  nop
+  nop
+HPBACK:
+[DISABLE]
+HPSIG:
+  db F3 0F 10 80 10 04 00 00
+dealloc(HPCAVE)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>14</ID>
+      <Description>"Infinite Nitrous (Player)"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+aobscanmodule(NITROHOOK,NFS11Remastered.exe,F3 0F 11 43 0C E8 EE F2 FF FF 4C 63 43 08 48 8B 0B)
+alloc(nitroCode,256,NFS11Remastered.exe)
+label(nitroSkip)
+label(nitroBack)
+nitroCode:
+  movss [rbx+0C],xmm0
+  pushfq
+  push rax
+  push rcx
+  mov rax,[NFS11Remastered.exe+1279218]
+  test rax,rax
+  je nitroSkip
+  mov ecx,42C80000
+  mov [rax+0005031C],ecx
+nitroSkip:
+  pop rcx
+  pop rax
+  popfq
+  jmp nitroBack
+NITROHOOK:
+  jmp nitroCode
+nitroBack:
+[DISABLE]
+NITROHOOK:
+  db F3 0F 11 43 0C
+dealloc(nitroCode)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>16</ID>
+      <Description>"No Weapon Cooldown (Player)"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+if syntaxcheck then return end
+if _G.nfsNoCD then _G.nfsNoCD.Enabled = false; _G.nfsNoCD.destroy(); _G.nfsNoCD = nil end
+_G.nfsNoCD = createTimer(nil)
+_G.nfsNoCD.Interval = 10
+_G.nfsNoCD.OnTimer = function()
+  local p = readPointer("NFS11Remastered.exe+1279208")
+  if p and p ~= 0 then
+    local cntObj = readPointer(p + 0xA0)
+    if cntObj and cntObj ~= 0 then
+      local count = readInteger(cntObj + 0x6C04)
+      if count and count &gt;= 0 and count &lt; 16 then
+        local baseIdx = count * 12
+        for i = 0, 11 do
+          local addr = p + 0x3D8 + (baseIdx + i) * 4
+          local v = readFloat(addr)
+          if v and v &gt; 0 and v &lt; 1 then
+            writeFloat(addr, 1.0)
+          end
+        end
+      end
+    end
+  end
+end
+_G.nfsNoCD.Enabled = true
+{$asm}
+
+[DISABLE]
+{$lua}
+if syntaxcheck then return end
+if _G.nfsNoCD then _G.nfsNoCD.Enabled = false; _G.nfsNoCD.destroy(); _G.nfsNoCD = nil end
+{$asm}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>17</ID>
+      <Description>"Infinite Weapon Uses (Player)"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+if syntaxcheck then return end
+if _G.nfsInfUses then _G.nfsInfUses.Enabled = false; _G.nfsInfUses.destroy(); _G.nfsInfUses = nil end
+_G.nfsInfUsesLast = {}
+_G.nfsInfUses = createTimer(nil)
+_G.nfsInfUses.Interval = 5
+_G.nfsInfUses.OnTimer = function()
+  local p = readPointer("NFS11Remastered.exe+1279208")
+  if p and p ~= 0 then
+    local c = readPointer(p + 0xA0)
+    local g = 0
+    if c and c ~= 0 then g = readInteger(c + 0x6C04) end
+    if g and g &gt;= 0 and g &lt; 16 then
+      for i = 0, 11 do
+        writeInteger(p + 0x5C4 + (g * 12 + i) * 4, 9)
+      end
+    end
+    for off = 0x500, 0x900, 4 do
+      local v = readInteger(p + off)
+      local last = _G.nfsInfUsesLast[off]
+      if v and v &gt;= 0 and v &lt;= 20 then
+        if last and last &gt;= 1 and last &lt;= 20 and v == last - 1 then
+          writeInteger(p + off, last)
+        else
+          _G.nfsInfUsesLast[off] = v
+        end
+      else
+        _G.nfsInfUsesLast[off] = nil
+      end
+    end
+  end
+end
+_G.nfsInfUses.Enabled = true
+{$asm}
+alloc(nfsinfcave2,16)
+nfsinfcave2:
+db 90
+
+[DISABLE]
+{$lua}
+if syntaxcheck then return end
+if _G.nfsInfUses then _G.nfsInfUses.Enabled = false; _G.nfsInfUses.destroy(); _G.nfsInfUses = nil end
+_G.nfsInfUsesLast = nil
+{$asm}
+dealloc(nfsinfcave2)
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>
