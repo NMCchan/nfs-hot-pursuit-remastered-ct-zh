@@ -4,6 +4,7 @@
     <CheatEntry>
       <ID>4</ID>
       <Description>"Freeze all AI driving commands (single-player)"</Description>
+      <Comments>Must be enabled before the race starts; enabling it mid-race may not work.</Comments>
       <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
