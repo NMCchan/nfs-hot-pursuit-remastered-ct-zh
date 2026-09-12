@@ -12,7 +12,7 @@
 | 比赛计时归零（玩家） | Race Timer Zero (Player) |
 | 无限生命（玩家） | Infinite Health (Player) |
 | 无限氮气（玩家） | Infinite Nitrous (Player) |
-| 武器无冷却（玩家） | No Weapon Cooldown (Player) |
+| 武器无冷却 | No Weapon Cooldown (Player) |
 | 无限装备使用次数（玩家） | Infinite Weapon Uses (Player) |
 
 ## 文件
