@@ -4,6 +4,7 @@
     <CheatEntry>
       <ID>4</ID>
       <Description>"冻结所有 AI 驾驶指令（单人模式）"</Description>
+      <Comments>必须在比赛开始之前开启，比赛开始后再开启可能不生效。</Comments>
       <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
