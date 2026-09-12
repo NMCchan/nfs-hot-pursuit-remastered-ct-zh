@@ -1,4 +1,4 @@
-# Need for Speed™ Hot Pursuit Remastered - Cheat Engine Table (中文版)
+# Need for Speed™ Hot Pursuit Remastered | Cheat Engine Table (中文版)
 
 **《极品飞车 热力追踪 重制版》Cheat Engine 中文修改表格**
 
