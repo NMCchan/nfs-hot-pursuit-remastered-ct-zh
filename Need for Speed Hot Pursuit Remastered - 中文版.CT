@@ -47,6 +47,7 @@ unregistersymbol(AI_PLAYER_SPEED)
     <CheatEntry>
       <ID>12</ID>
       <Description>"比赛计时归零（玩家）"</Description>
+      <Comments>不建议一直开启，仅建议在有时间限制的关卡使用。开启到计时归零后请立即关闭；一直开启可能导致通关结算判定异常，从而无法获得金牌。</Comments>
       <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
