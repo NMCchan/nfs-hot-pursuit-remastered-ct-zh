@@ -47,6 +47,7 @@ unregistersymbol(AI_PLAYER_SPEED)
     <CheatEntry>
       <ID>12</ID>
       <Description>"Race Timer Zero (Player)"</Description>
+      <Comments>Do not leave this enabled. Recommended only for time-limited events. Disable it immediately after the timer reaches zero; leaving it enabled may cause the completion result to be invalid and prevent a gold medal.</Comments>
       <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
